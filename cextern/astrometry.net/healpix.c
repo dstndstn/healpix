@@ -1010,23 +1010,23 @@ static void hp_to_xyz(hp_t* hp, int Nside,
             phi_t = pi * (Nside-y) / (2.0 * ((Nside-x) + (Nside-y)));
 
         if (phi_t < pi/4.) {
-
+            //  z = 1.0 - mysquare(pi * (Nside - x) / ((2.0 * phi_t - pi) * Nside)) / 3.0;
             //printf("Nside-x: %f, 2phi_t-pi: %f, squared factor: %f\n",
             //(Nside - x), (2.0 * phi_t - pi),
             //pi * (Nside - x) / ((2.0 * phi_t - pi) * Nside));
-            double vv = pi * (Nside - x) / ((2.0 * phi_t - pi) * Nside) / sqrt(3);
+            double vv = fabs(pi * (Nside - x) / ((2.0 * phi_t - pi) * Nside) / sqrt(3));
             //z = 1.0 - mysquare(pi * (Nside - x) / ((2.0 * phi_t - pi) * Nside)) / 3.0;
             z = (1 - vv) * (1 + vv);
             rad = sqrt(1.0 + z) * vv;
             //rad = sqrt(1.0 - z*z);
 
         } else {
-
+            //  z = 1.0 - mysquare(pi * (Nside - y) / (2.0 * phi_t * Nside)) / 3.0;
             //printf("Nside-y: %f, 2phi_t*Ns: %f, squared factor: %g\n",
             //     (Nside - y), (2.0 * phi_t * Nside),
             //     pi * (Nside - y) / (2.0 * phi_t * Nside));
 
-            double vv = pi * (Nside-y) / (2. * phi_t * Nside) / sqrt(3);
+            double vv = fabs(pi * (Nside-y) / (2. * phi_t * Nside) / sqrt(3));
             //printf("vv = %g\n", vv);
             z = (1 - vv) * (1 + vv);
             //printf("z = %g\n", z);
